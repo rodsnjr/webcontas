@@ -1,0 +1,44 @@
+<form class="ui form item">
+
+  <input type="hidden" name="id">
+
+  <div class="field">
+    <label>Nome</label>
+    <input type="text" name="name">
+  </div>
+  
+  <div class="field">
+    {% include "./categories.njk" %}
+  </div>
+
+  <div class="required field">
+    <label>Valor</label>
+    <input type="text" name="value" placeholder="">
+  </div>
+
+  <div class="grouped fields">
+
+    <div class="inline field">
+      <div class="ui toggle checkbox">
+        <input type="radio" name="type" value="CONTA" tabindex="0" class="hidden">
+        <label>Conta</label>
+      </div>
+    </div>
+    <div class="inline field">
+      <div class="ui toggle checkbox">
+        <input type="radio" name="type" value="RECEBIMENTO" tabindex="0" class="hidden">
+        <label>Recebimento</label>
+      </div>
+    </div>    
+    <div class="inline field">
+      <div class="ui toggle checkbox">
+        <input id="pago" type="radio" name="type" value="PAGO" tabindex="0" class="hidden">
+        <label>Pago</label>
+      </div>
+    </div>
+
+  </div>
+
+
+  <div class="ui submit button">Lançar</button>
+</form>

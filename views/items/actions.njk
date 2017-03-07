@@ -1,0 +1,15 @@
+<div class="ui icon buttons actions">
+
+  {% if paid(item) %}
+  <button class="ui blue button pay" data-id="{{ item.id }}">
+    <i class="payment icon"></i>
+  </button>
+  {% endif %}
+
+  <button class="ui green button edit" data-id="{{ item.id }}">
+    <i class="edit icon"></i>
+  </button>
+  <button class="ui red button delete" data-id="{{ item.id }}">
+    <i class="erase icon"></i>
+  </button>
+</div>

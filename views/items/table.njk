@@ -1,0 +1,28 @@
+<table class="ui table">
+      <thead>
+        <tr>
+          <th>Item</th>
+          <th>Categoria</th>
+          <th>Valor</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr data-id="{{ item.id }}" id="{{ item.id }}">
+            <td class="item name">{{ item.name }}</td>
+            <td class="item category">{{ item.category.name }}</td>
+            <td class="item value {{ typeValue(item.type) }}">{{ item.value | round(2) }}</td>
+            <td>{% include "./actions.njk" %}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+      <tfoot>
+        <tr>
+          <th></th>
+          <th></th>
+          <th></th>
+          <th></th>
+        </tr>
+      </tfoot>
+</table>

@@ -1,0 +1,25 @@
+{
+  "name": "webcontas",
+  "version": "0.0.1",
+  "description": "aplicação para controlar as finanças pessoais",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "finanças",
+    "web"
+  ],
+  "author": "Rodney S. Nogueira Jr",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.15.0",
+    "expressjs": "^1.0.1",
+    "nunjucks": "^3.0.0",
+    "pg": "^6.1.2",
+    "pg-hstore": "^2.3.2",
+    "sequelize": "^3.30.2",
+    "ws": "^2.2.0"
+  }
+}
