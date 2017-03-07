@@ -1,0 +1,13 @@
+<div class="ui fluid search selection dropdown categories">
+  <input type="hidden" name="category">
+  <i class="dropdown icon"></i>
+  <div class="default text">Categorias</div>
+  <div class="menu">
+    {% for category in categories %}
+    <div class="item" data-value="{{ category.name }}">
+      <i class="{{category.icon}} {{ category.color }} icon"></i>
+      {{ category.name }}
+    </div>
+    {% endfor %}
+  </div>
+</div>

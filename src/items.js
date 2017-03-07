@@ -16,12 +16,17 @@ var saldo = function (request, response, next) {
 app.get('/saldo', saldo);
 
 app.post('/', function(request, response){
+    console.log('request body');
+    console.log(request.body);
     data.Item.build(request.body)
         .save()
         .then(function(item){
+            console.log('created item');
+            console.log(item);
             var success = { success : true, data : item};
             response.send(success);
         }).catch(function(error){
+            console.log('error');
             response.send({success : false, data : error});
         });    
 });
@@ -61,7 +66,7 @@ app.put('/:id', function(request, response){
         .then(function(one){
             one.update(request.body)
                 .then(function(updated){
-                    var success = { success : true, data : updated};
+                    var success = { success : true, data : updated };
                     response.send(success);
         });
     });

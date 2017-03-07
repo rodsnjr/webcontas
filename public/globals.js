@@ -9,7 +9,9 @@ function SaldoTemplate(value){
     this.value = value;
     this.render = function(){
         var templateIcon = '<i class="dollar ' + this.color() + ' icon"></i>';
-        return templateIcon + value;
+        if (!this.value)
+            this.value=0;
+        return templateIcon + this.value;
     }
     this.color = function(){
         return (this.value > 0 ? 'green' : 'red');
@@ -22,7 +24,7 @@ ItemsTable.prototype.refreshItem = function (response) {
 
     var id = "#" + response.data.id;
     $(id).children('.item.name').html(response.data.name);
-    
+
     if (response.data.category)
         $(id).children('.item.category').html(response.data.category.name);
 
@@ -43,7 +45,11 @@ ItemsTable.prototype.tableActions = function(){
 };
 
 ItemsTable.prototype.itemEditRefresh = function (response) {
+    // Popula o formulário
     $('.form.item').populate(response.data);
+    // Seleciona a categorya
+    $('.selection.dropdown.categories')
+        .dropdown('set selected', response.data.category);
     // Muda o estado do menu
     $('.menu .item').attr('class', 'item');
     $('.menu #item').attr('class', 'active item');
@@ -103,6 +109,7 @@ ItemsForm.prototype.formUpdate = function (_id) {
 ItemsForm.prototype.clear = function(response){
     $('.form.item').populate({});
     $('.checkbox #pago').removeAttr('disabled');
+    $('.selection.dropdown.categories').dropdown('clear');
 };
 ItemsForm.prototype.formPost = {
     url: '/api/items/',

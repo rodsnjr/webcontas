@@ -9,6 +9,7 @@ var views = require('./src/views');
 var data = require('./src/data');
 var api = require('./src/api');
 var ws=require('./src/websocket');
+var db = require('./src/data');
 
 var app = express();
 
@@ -31,7 +32,9 @@ app.use('/view', views);
 app.use('/api', api);
 
 app.get('/', function(request, response) {
-    response.render('index.njk');
+    db.Category.findAll().then(function(all){
+        response.render('index.njk', {categories : all});
+    });
 });
 
 const server = http.createServer(app);

@@ -11,18 +11,14 @@ $(document).ready(function(){
         }
     });
 
+    $('.selection.dropdown.categories').dropdown();
+
     $('.menu .item').tab();
 
     $('#item').click(function(){
-        $('.form.item').populate({});
+        ItemsForm.prototype.clear();
         $('.item .submit.button').api(ItemsForm.prototype.formPost);
     });
 
-    /*
-    $('.checkbox').checkbox({
-      onChecked : FormCheckBox.prototype.form_check,
-      onUnchecked : FormCheckBox.prototype.form_uncheck
-    });
-    */
     $('.checkbox').checkbox();
 });
