@@ -6,7 +6,6 @@ $(document).ready(function(){
         action : 'saldo',
         on : 'now',
         onSuccess : function(response){
-            console.log(response.data);
             $('#saldo').html(new SaldoTemplate(response.data).render());
         }
     });

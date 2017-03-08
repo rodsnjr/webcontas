@@ -16,19 +16,13 @@ var saldo = function (request, response, next) {
 app.get('/saldo', saldo);
 
 app.post('/', function(request, response){
-    console.log('request body');
-    console.log(request.body);
     data.Item.build(request.body)
         .save()
         .then(function(item){
-            console.log('created item');
-            console.log(item);
-            var success = { success : true, data : item};
-            response.send(success);
+            response.send({ success : true, data : item });
         }).catch(function(error){
-            console.log('error');
-            response.send({success : false, data : error});
-        });    
+            response.send({ success : false, data : error });
+        });
 });
 
 app.get('/:id', function(request, response){

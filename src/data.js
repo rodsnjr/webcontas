@@ -1,4 +1,6 @@
 var Sequelize = require('sequelize');
+var md5 = require('md5');
+
 var sequelize = new Sequelize('dbname', 'contasapp', '', {
     host: "localhost",
     port: 5432,
@@ -6,7 +8,10 @@ var sequelize = new Sequelize('dbname', 'contasapp', '', {
 });
 
 var User = sequelize.define('user', {
-  username: Sequelize.STRING,
+  username: {
+      type : Sequelize.STRING,
+      primaryKey : true
+  },
   password: Sequelize.STRING
 });
 
@@ -59,11 +64,11 @@ var categories = Category.bulkCreate([
 
 var user = User.create({
     username: 'rodsnjr',
-    password: 'n0gueir@'
+    password: md5('n0gueir@')
 });
 
 sequelize.sync().then(function() {
     return [user, categories];
 });
 
-module.exports = {Category:Category, Item:Item};
+module.exports = {Category:Category, Item:Item, User:User};

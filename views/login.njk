@@ -1,0 +1,19 @@
+{% extends "layout.njk" %}
+{% block content %}
+<form action="/login" method="POST" class="ui form segment login">
+
+  <div class="required field">
+    <label>Usuário</label>
+    <input type="text" name="username" placeholder="">
+  </div>
+
+  <div class="required field">
+    <label>Senha</label>
+    <input type="text" name="password" placeholder="Last Name">
+  </div>
+  <input class="ui button" type="submit" value="Submit">
+
+</form>
+
+<!--<script src="login.js"></script>-->
+{% endblock %}

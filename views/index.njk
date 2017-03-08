@@ -1,29 +1,17 @@
-<html>
-    <head>
-        <script src="/jquery.min.js"></script>
-        <script src="/jquery.serialize-object.min.js"></script>
-        <script src="/semantic.min.js"></script>
-        <script src="/jquery.populate.js"></script>
-        <script src="/globals.js"></script>
-        <link rel="stylesheet" type="" href="/semantic.min.css">
-        <meta charset="UTF8">
-    </head>
-    <body>
-        <div class="ui container">
-            {% include "menu.html" %}
-            <div data-tab="geral" class="ui bottom attached tab segment">
+{% extends 'layout.njk' %}
 
-            </div>
-            <div data-tab="items" class="ui bottom attached tab segment">
-                <div id="items-table" class="ui container">
-                </div>
-            </div>
-            <div data-tab="item" class="ui bottom attached tab segment">
-                {% include "items/form.njk" %}
-            </div>
-        </div>
+{% block content %}
+{% include "menu.html" %}
+<div data-tab="geral" class="ui bottom attached tab segment">
 
-        <script src="/app.js"></script>
+</div>
+<div data-tab="items" class="ui bottom attached tab segment">
+    <div id="items-table" class="ui container">
+    </div>
+</div>
+<div data-tab="item" class="ui bottom attached tab segment">
+    {% include "items/form.njk" %}
+</div>
 
-    </body>
-</html>
+<script src="/app.js"></script>
+{% endblock %}

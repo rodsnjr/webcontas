@@ -30,4 +30,10 @@ app.get('/items', function(request, response){
 
 });
 
+app.get('/login/error', function(request, response){
+
+  response.render('error.njk');
+  
+});
+
 module.exports = app;
