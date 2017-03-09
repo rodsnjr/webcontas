@@ -32,17 +32,17 @@ ItemsTable.prototype.refreshItem = function (response) {
     $(id).children('.item.value').html(response.data.value);
 
 };
-
-ItemsTable.prototype.payItem = function(response){
+/*
+ItemsTable.prototype.itemPaid = function(response){
     var id = "#" + response.data.id;
     $(id).children('.value').removeClass('positive');
     $(id).children('.value').addClass('warning');
 }
-
+*/
 ItemsTable.prototype.tableActions = function(){
     $('.actions .edit').api(ItemsTable.prototype.itemEdit);
     $('.actions .delete').api(ItemsTable.prototype.itemDelete);
-    $('.actions .pay').api(ItemsTable.prototype.itemPay);
+    //$('.actions .pay').api(ItemsTable.prototype.itemPay);
 };
 
 ItemsTable.prototype.itemEditRefresh = function (response) {
@@ -80,12 +80,13 @@ ItemsTable.prototype.itemDelete = {
     method: 'DELETE',
     onSuccess: ItemsTable.prototype.refreshItem
 };
+/*
 ItemsTable.prototype.itemPay = {
     action: "item pay",
     method: 'PUT',
-    onSuccess: ItemsTable.prototype.payItem
+    onSuccess: ItemsTable.prototype.itemPaid
 };
-
+*/
 function ItemsForm() { }
 /* Common Functions */
 ItemsForm.prototype.clear = function(response){
@@ -158,4 +159,4 @@ $('.form.item')
     fields : rules
   });
 
-}
+};

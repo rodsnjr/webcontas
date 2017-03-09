@@ -39,7 +39,7 @@ var Item = sequelize.define('item',
     value: Sequelize.DECIMAL,
     category: Sequelize.STRING,
     date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
-    type: Sequelize.ENUM('CONTA', 'RECEBIMENTO', 'PAGO')
+    type: Sequelize.ENUM('CONTA', 'RECEBIMENTO')
 },
 {
 hooks : {

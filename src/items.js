@@ -47,7 +47,7 @@ app.delete('/:id', function(request, response){
         });
     });
 });
-
+/*
 app.put('/:id/pay', function(request, response){
     data.Item.findById(request.params.id).then(function(one){
         one.update({type:'PAGO'}).then(function(done){
@@ -56,7 +56,7 @@ app.put('/:id/pay', function(request, response){
     });
     
 });
-
+*/
 app.put('/:id', function(request, response){
     var item = request.body;
     if (item.date == '') item.date = Date.now()
