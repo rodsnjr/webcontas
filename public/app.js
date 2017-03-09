@@ -10,14 +10,11 @@ $(document).ready(function(){
         }
     });
 
-    $('.selection.dropdown.categories').dropdown();
-
     $('.menu .item').tab();
 
     $('#item').click(function(){
-        ItemsForm.prototype.clear();
-        $('.item .submit.button').api(ItemsForm.prototype.formPost);
+        ItemsForm.prototype.newItem();
     });
 
-    $('.checkbox').checkbox();
+    ItemsForm.prototype.createForm();
 });

@@ -6,14 +6,10 @@
     <label>Nome</label>
     <input type="text" name="name">
   </div>
-  
-  <div class="field">
-    {% include "./categories.njk" %}
-  </div>
 
   <div class="required field">
     <label>Valor</label>
-    <input type="text" name="value" placeholder="">
+    <input id="value" type="text" name="value">
   </div>
 
   <div class="required grouped fields">
@@ -35,10 +31,17 @@
         <input id="pago" type="radio" name="type" value="PAGO" tabindex="0" class="hidden">
         <label>Pago</label>
       </div>
-    </div>
-
   </div>
 
+  <div class="field">
+    <label>Data do Lançamento</label>
+    <input type="date" name="date">
+  </div>
 
-  <div class="ui submit button">Lançar</button>
+  <div class="field">
+    {% include "./categories.njk" %}
+  </div>
+
+  <div class="ui submit button">Lançar</div>
+  <div class="ui clear button">Limpar</div>
 </form>

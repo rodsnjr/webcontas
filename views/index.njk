@@ -1,6 +1,7 @@
 {% extends 'layout.njk' %}
 
 {% block content %}
+
 {% include "menu.html" %}
 <div data-tab="geral" class="ui bottom attached active tab segment">
 
@@ -13,5 +14,7 @@
     {% include "items/form.njk" %}
 </div>
 
+<script src="/jquery.maskMoney.min.js"></script>
+<script src="/globals.js"></script>
 <script src="/app.js"></script>
 {% endblock %}

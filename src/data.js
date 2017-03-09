@@ -38,6 +38,7 @@ var Item = sequelize.define('item',
     name: Sequelize.STRING,
     value: Sequelize.DECIMAL,
     category: Sequelize.STRING,
+    date: { type: Sequelize.DATE, defaultValue: Sequelize.NOW },
     type: Sequelize.ENUM('CONTA', 'RECEBIMENTO', 'PAGO')
 },
 {

@@ -1,6 +1,7 @@
 $.fn.api.settings.api = {
     'table items' : '/view/items/',
     'item' : '/api/items/{id}',
+    'items' : '/api/items',
     'item pay' : '/api/items/{id}/pay',
     'saldo' : '/api/items/saldo'
 };
@@ -46,10 +47,10 @@ ItemsTable.prototype.tableActions = function(){
 
 ItemsTable.prototype.itemEditRefresh = function (response) {
     // Popula o formulário
-    $('.form.item').populate(response.data);
+    $('.form.item').form('set values', response.data);
     // Seleciona a categorya
-    $('.selection.dropdown.categories')
-        .dropdown('set selected', response.data.category);
+    //$('.selection.dropdown.categories')
+    //    .dropdown('set selected', response.data.category);
     // Muda o estado do menu
     $('.menu .item').attr('class', 'item');
     $('.menu #item').attr('class', 'active item');
@@ -58,8 +59,7 @@ ItemsTable.prototype.itemEditRefresh = function (response) {
     // Muda a tab
     $.tab('change tab', 'item');
     //Atualiza a call/API do formulário pra update
-    $('.item .submit.button')
-        .api(ItemsForm.prototype.formUpdate(response.data.id));
+    ItemsForm.prototype.formUpdate();
 };
 
 ItemsTable.prototype.findAll = {
@@ -90,30 +90,75 @@ ItemsTable.prototype.itemPay = {
 };
 
 function ItemsForm() { }
-
-ItemsForm.prototype.formUpdate = function (_id) {
-    var update = {
-        url: '/api/items/{id}',
-        method: 'PUT',
-        urlData: { id: _id },
-        serializeForm: true,
-        onSuccess: function (response) {
-            $('.menu .item').attr('class', 'item');
-            $('.menu #items').attr('class', 'active item');
-            ItemsTable.prototype.refreshItem(response);
-            $.tab('change tab', 'items');
-        }
-    }
-    return update;
-};
+/* Common Functions */
 ItemsForm.prototype.clear = function(response){
-    $('.form.item').populate({});
+    $('.form.item').form('clear');
     $('.checkbox #pago').removeAttr('disabled');
-    $('.selection.dropdown.categories').dropdown('clear');
+};
+
+ItemsForm.prototype.createForm = function(){
+    $('#value').maskMoney();    
+    $('.checkbox').checkbox();
+    $('.selection.dropdown.categories').dropdown();
+    ItemsForm.prototype.validations();
+};
+
+/* API Functions */
+ItemsForm.prototype.updateSuccess = function (response) {
+    $('.menu .item').attr('class', 'item');
+    $('.menu #items').attr('class', 'active item');
+    ItemsTable.prototype.refreshItem(response);
+    $.tab('change tab', 'items');
+}
+
+/* API Objects */
+ItemsForm.prototype.update = {
+        action: 'item',
+        method: 'PUT',
+        beforeSend: function(settings){
+            settings.urlData = {
+                id: settings.data.id
+            };
+            return settings;
+        },
+        serializeForm: true,
+        onSuccess: ItemsForm.prototype.updateSuccess
 };
 ItemsForm.prototype.formPost = {
-    url: '/api/items/',
+    action: 'items',
     method: 'POST',
     serializeForm: true,
     onSuccess : ItemsForm.prototype.clear
 };
+
+/* API Changing Functions */
+ItemsForm.prototype.formUpdate = function () {
+    $('.form.item').api(ItemsForm.prototype.update);
+};
+
+ItemsForm.prototype.newItem = function(){
+    ItemsForm.prototype.clear();
+    $('.form.item').api(ItemsForm.prototype.formPost);
+};
+
+/* Validations and Rules */
+ItemsForm.prototype.validations = function(){
+
+var rules = {
+      value : {
+        identifier : 'value',
+        rules : [{type: 'empty', prompt:'Preencher o valor'}]
+      },
+      itemType : {
+        identifier : 'type',
+        rules : [{type: 'checked', prompt:'Selecionar o tipo'}] 
+      } 
+}
+
+$('.form.item')
+  .form({
+    inline : true,
+    fields : rules
+  });
+
+}

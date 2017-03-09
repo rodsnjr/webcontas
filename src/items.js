@@ -16,7 +16,9 @@ var saldo = function (request, response, next) {
 app.get('/saldo', saldo);
 
 app.post('/', function(request, response){
-    data.Item.build(request.body)
+    var item = request.body;
+    if (item.date == '') item.date = Date.now()
+    data.Item.build(item)
         .save()
         .then(function(item){
             response.send({ success : true, data : item });
@@ -56,9 +58,11 @@ app.put('/:id/pay', function(request, response){
 });
 
 app.put('/:id', function(request, response){
+    var item = request.body;
+    if (item.date == '') item.date = Date.now()
     data.Item.findById(request.params.id)
         .then(function(one){
-            one.update(request.body)
+            one.update(item)
                 .then(function(updated){
                     var success = { success : true, data : updated };
                     response.send(success);
