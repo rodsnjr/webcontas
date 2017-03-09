@@ -5,7 +5,7 @@ var sequelize = require('sequelize');
 
 var saldo = function (request, response, next) {
     
-    data.Item.sum('value', { where : { type : { $ne : 'PAGO'}}})
+    data.Item.sum('value')
     .then(function(saldo){
         response.send({ success : true, data : saldo });
     });
