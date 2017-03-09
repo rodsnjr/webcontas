@@ -50,31 +50,53 @@ hooks : {
 
 Category.belongsTo(Item, {foreignKey: 'category'});
 
-var categories = Category.bulkCreate([
-    /* Contas */
-    { name: 'Aluguel', icon: 'home', color: 'red', type : 'CONTA' },
-    { name: 'Condomínio', icon: 'building outline', color: 'red', type : 'CONTA' },
-    { name: 'Luz', icon: 'lightning', color: 'red', type : 'CONTA' },
-    { name: 'Telefone', icon: 'phone', color: 'red', type : 'CONTA' },
-    { name: 'Cartão', icon: 'mastercard', color: 'red', type : 'CONTA' },
-    { name: 'Outros', icon: 'money', color: 'red', type : 'CONTA'},
-    /* Recebimentos */
-    { name: 'Salário', icon: 'book', color: 'green', type : 'RECEBIMENTO' },
-    { name: 'Venda', icon: 'shop', color: 'green', type : 'RECEBIMENTO' }
-]);
+var migration = function () {
+    var exit=[]
+    Category.count().then(function(value){
+        if (value <= 0){
+            var categories = Category.bulkCreate([
+            /* Contas */
+            { name: 'Aluguel', icon: 'home', color: 'red', type: 'CONTA' },
+            { name: 'Condomínio', icon: 'building outline', color: 'red', type: 'CONTA' },
+            { name: 'Luz', icon: 'lightning', color: 'red', type: 'CONTA' },
+            { name: 'Telefone', icon: 'phone', color: 'red', type: 'CONTA' },
+            { name: 'Cartão', icon: 'mastercard', color: 'red', type: 'CONTA' },
+            { name: 'Outros', icon: 'money', color: 'red', type: 'CONTA' },
+            /* Recebimentos */
+            { name: 'Salário', icon: 'book', color: 'green', type: 'RECEBIMENTO' },
+            { name: 'Venda', icon: 'shop', color: 'green', type: 'RECEBIMENTO' }
+            ]);
+            
+            exit.push(categories);
+        }
+    });
 
-var dummyItems = Item.bulkCreate([
-    { name: 'Mãetrocínio', value: 900, category:'Salario',type:'RECEBIMENTO'},
-    { name: 'Nubank', value:500, category:'Cartão', type:'CONTA'}
-]);
+    Item.count().then(function(value){
+        if (value <=0){
+            var dummyItems = Item.bulkCreate([
+                { name: 'Mãetrocínio', value: 900, category: 'Salario', type: 'RECEBIMENTO' },
+                { name: 'Nubank', value: 500, category: 'Cartão', type: 'CONTA' }
+            ]);
+            exit.push(dummyItems);
+        }
+    });
 
-var user = User.create({
-    username: 'rodsnjr',
-    password: md5('n0gueir@')
-});
 
-sequelize.sync().then(function() {
-    return [user, categories, dummyItems];
+    User.count().then(function(value){
+        if (value <=0){
+            var user = User.create({
+                username: 'rodsnjr',
+                password: md5('n0gueir@')
+            });
+
+            exit.push(user);
+        }
+    });
+}
+
+
+sequelize.sync().then(function(){
+    return migration();
 });
 
 module.exports = {Category:Category, Item:Item, User:User};

@@ -8,6 +8,9 @@ passport.use(new LocalStrategy(
   function(username, password, done) {
     User.findById(username)
     .then(function(user){
+      if (!user){
+        return done(null, false, {message:"No User with this name" + username});
+      }
       if (user.password==md5(password)){
         return done(null, user);
       }
