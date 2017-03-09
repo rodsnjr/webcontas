@@ -48,9 +48,6 @@ ItemsTable.prototype.tableActions = function(){
 ItemsTable.prototype.itemEditRefresh = function (response) {
     // Popula o formulário
     $('.form.item').form('set values', response.data);
-    // Seleciona a categorya
-    //$('.selection.dropdown.categories')
-    //    .dropdown('set selected', response.data.category);
     // Muda o estado do menu
     $('.menu .item').attr('class', 'item');
     $('.menu #item').attr('class', 'active item');
