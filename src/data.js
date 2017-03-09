@@ -7,8 +7,6 @@ var sequelize = new Sequelize('dbname', 'contasapp', '', {
     dialect: 'postgres'
 });
 
-//teste
-
 var User = sequelize.define('user', {
   username: {
       type : Sequelize.STRING,
