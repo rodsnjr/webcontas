@@ -63,13 +63,18 @@ var categories = Category.bulkCreate([
     { name: 'Venda', icon: 'shop', color: 'green', type : 'RECEBIMENTO' }
 ]);
 
+var dummyItems = Item.bulkCreate([
+    { name: 'Mãetrocínio', value: 900, category:'Salario',type:'RECEBIMENTO'},
+    { name: 'Nubank', value:500, category:'Cartão', type:'CONTA'}
+]);
+
 var user = User.create({
     username: 'rodsnjr',
     password: md5('n0gueir@')
 });
 
 sequelize.sync().then(function() {
-    return [user, categories];
+    return [user, categories, dummyItems];
 });
 
 module.exports = {Category:Category, Item:Item, User:User};

@@ -3,6 +3,7 @@
         <tr>
           <th>Item</th>
           <th>Categoria</th>
+          <th>Data</th>
           <th>Valor</th>
           <th>Ações</th>
         </tr>
@@ -12,6 +13,7 @@
           <tr data-id="{{ item.id }}" id="{{ item.id }}">
             <td class="item name">{{ item.name }}</td>
             <td class="item category">{{ item.category }}</td>
+            <td class="item date">{{ date(item.date) }}</td>
             <td class="item value {{ typeValue(item.type) }}">{{ item.value | round(2) }}</td>
             <td>{% include "./actions.njk" %}</td>
           </tr>

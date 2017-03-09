@@ -15,6 +15,16 @@ var _paid = function(item){
   return item.type.valueOf()=='CONTA';
 }
 
+var _date = function(date){
+  var mm = date.getMonth() + 1; // getMonth() is zero-based
+  var dd = date.getDate();
+
+  return [(dd>9 ? '' : '0') + dd,
+          (mm>9 ? '' : '0') + mm,
+          date.getFullYear()
+         ].join('/');
+}
+
 app.get('/items', function(request, response){
   
   data.Item.findAll()
@@ -23,6 +33,7 @@ app.get('/items', function(request, response){
       response.render('items/table.njk', {
         typeValue: _typeValue,
         paid: _paid,
+        date:_date,
         items : _items
       });
     
