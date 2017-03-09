@@ -75,7 +75,7 @@ var migration = function () {
         if (value <=0){
             var dummyItems = Item.bulkCreate([
                 { name: 'Mãetrocínio', value: 900, category: 'Salario', type: 'RECEBIMENTO' },
-                { name: 'Nubank', value: 500, category: 'Cartão', type: 'CONTA' }
+                { name: 'Nubank', value: -500, category: 'Cartão', type: 'CONTA' }
             ]);
             exit.push(dummyItems);
         }
