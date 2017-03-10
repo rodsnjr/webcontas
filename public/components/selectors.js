@@ -37,16 +37,17 @@ define(['jquery', 'semantic'], function(){
             item : '.menu #item',
             items : '.menu #items',
             geral : '.menu #geral'
-        }
+        },
+        saldo:'#saldo'
     }
 
     const item_form = {
         id: '.form.item',
-        checkbox : this.id + ' .checkbox',
-        value : this.id + ' #value',
-        dropdown : this.id + ' .categories'
+        checkbox : '.form.item .checkbox',
+        value : '.form.item #value',
+        dropdown : '.form.item .categories'
     };
-
+    
     $.fn.api.settings.api = {
         'table items' : urls.view.items,
         'item' : urls.resources.item,

@@ -1,66 +1,60 @@
-define(['selectors', 'jquery', 'semantic', 'itemTable'], 
-    function(selectors, itemTable){
-    
-    var onTabDraw = undefined;
+define(function (require) {
 
-    var tabs = {
-        items : 'items',
-        item : 'item',
-        geral : 'geral'
-    }
+        const tabs = {
+            items: 'items',
+            item: 'item',
+            geral: 'geral'
+        }
+        var selectors=undefined;
+        var tableTab = undefined;
+        var events = undefined;
 
-    var tableTab = {
-        action: selectors.api.view.items,
-        method: 'GET',
-        cache: false,
-        onComplete: function (response) {
+        function _import(){
+            require('jquery');
+            require('semantic');
+            events = require('events');
+            selectors=require('selectors');
+        };
+
+        var _load = function () {
+            _import();
+            
+            tableTab = {
+                action: selectors.api.view.items,
+                method: 'GET',
+                cache: false,
+                onComplete: loadTableTab
+            };
+
+            $(selectors.menu.tabs.items).api(tableTab);
+            $(selectors.menu.buttons).tab();
+        }
+
+        var loadTableTab = function (response) {
             tabDraw(tabs.items, response);
+            events.onTableLoad();
         }
-    };
 
-    var _load = function(args){
-        $(selectors.menu.tabs.items).api(tableTab);
-        if (args.onTabDraw){
-            onTabDraw = args.onTabDraw;
+        var tabDraw = function (tab, html) {
+            if (tab == tabs.items) {
+                $(selectors.item_table.id).html(html);
+            }
         }
-        if (args.tabEnter){
-            $(selectors.menu.buttons).tab({
-                onLoad : function(tabPath, parameterArray, historyEvent){
-                    args.tabEnter(tabPath);
-                }
-            });
-        }else{
-             $(selectors.menu.buttons).tab();
-        }
-    }
 
-    var tabDraw = function(tab, html){
+        var _changeTab = function (tab) {
+            $.tab('change tab', tab);
+            activeItem(selectors.menu.tabs[tab]);
+        };
 
-        if (tab==tabs.items){
-            $(selectors.item_table.id).html(html);
-        }
-        
-        if (onTabDraw)
-            onTabDraw(tab);
-    }
+        var activeItem = function (item) {
+            $('.menu .item').attr('class', 'item');
+            $(item).attr('class', 'active item');
+        };
 
-    var _changeTab = function(tab){
-        if (tab==tab.items){
-            $(selectors.menu.tabs.items).api('query');
-        }
-        $.tab('change tab', tab);
-        activeItem(tab);
-    };
+        return {
+            load: _load,
+            changeTab: _changeTab,
+            tabs: tabs
+        };
 
-    var activeItem = function(item){
-        $('.menu .item').attr('class', 'item');
-        $(item).attr('class', 'active item');
-    };
-
-    return {
-        load : _load,
-        changeTab : _changeTab,
-        tabs : tabs
-    };
-
-});
+    });

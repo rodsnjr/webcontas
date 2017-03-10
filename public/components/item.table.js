@@ -1,7 +1,7 @@
 define(['selectors', 'jquery', 'semantic'],
     function (selectors) {
 
-    var onEdit = undefined;
+    var events = undefined;
 
     var itemEdit = {
         action: selectors.api.resources.item,
@@ -40,6 +40,10 @@ define(['selectors', 'jquery', 'semantic'],
         $(id).children(selectors.item_table.row.date).html(data.date);
     };
 
+    var refreshTable = function(){
+         $(selectors.menu.tabs.items).api('query');
+    }
+
     var tableActions = function () {
         $(selectors.item_table.actions.edit).api(itemEdit);
         $(selectors.item_table.actions.delete).api(itemDelete);
@@ -47,18 +51,17 @@ define(['selectors', 'jquery', 'semantic'],
     };
 
     var editItem = function (data) {
-        console.log('edit item');
-        if (onEdit)
-            onEdit(data);
+        events.onEditItem(data);
     };
 
-    var _load = function () {
+    var _load = function (_events) {
+        events=_events;
         tableActions();
     };
 
     return {
         load : _load,
-        onEdit : onEdit
+        refresh : refreshTable
     };
 
 });
