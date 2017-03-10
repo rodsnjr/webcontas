@@ -25,18 +25,7 @@ requirejs.config({
 // Start the main app logic.
 requirejs(['jquery'],
 function   ($) {
-    
     $(document).ready(function(){
         
-
-        $('#saldo').api({
-            action : 'saldo',
-            on : 'now',
-            onSuccess : function(response){
-                $('#saldo').html(new SaldoTemplate(response.data).render());
-            }
-        });
-
-        ItemsForm.prototype.createForm();
     });
 });

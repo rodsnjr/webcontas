@@ -46,6 +46,10 @@ var ItemsForm = (function () {
         validations();
     };
 
+    var _setValues = function(values){
+        $(selector.form.id).form('set values', values);
+    }
+
     /* API Functions */
     var updateSuccess = function (response) {
         if (onUpdate)
@@ -56,6 +60,10 @@ var ItemsForm = (function () {
     var formUpdate = function () {
         $(selector.form.id).api(update);
     };
+
+    var formNew = function(){
+        $(selector.form.id).api(formPost);
+    }
 
     var newItem = function () {
         clear();
@@ -77,6 +85,11 @@ var ItemsForm = (function () {
         onUpdate = args.onUpdate;
     };
 
-    return { load : _load };
+    return { 
+        load : _load,
+        setValues : _setValues,
+        toUpdate : formUpdate,
+        toNew : formNew
+    };
 
 })();

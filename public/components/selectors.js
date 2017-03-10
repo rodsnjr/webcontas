@@ -21,8 +21,11 @@ var Selector = (function(){
     const menu = {
         id : '',
         buttons : '.menu .item',
-        item : '.menu #item',
-        items : '.menu #items'
+        tabs : {
+            item : '.menu #item',
+            items : '.menu #items',
+            geral : '.menu #geral'
+        }
     }
 
     const form = {
