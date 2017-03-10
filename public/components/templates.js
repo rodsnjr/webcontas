@@ -1,10 +1,10 @@
-var Templates = (function(){
-
+define(function(require, exports, module){
+    var selectors = require('selectors');
     var saldoTemplate = new SaldoTemplate();
     
     function SaldoTemplate(){        
         $('#saldo').api({
-            action : 'saldo',
+            action : selectors.api.saldo,
             on : 'now',
             onSuccess : function(response){
                 $('#saldo').html(this.render(response.data));
@@ -23,4 +23,4 @@ var Templates = (function(){
     };
 
     return { saldo : _saldoTemplate };
-})();
+});

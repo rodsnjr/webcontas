@@ -26,7 +26,7 @@ var _date = function(date){
 }
 
 app.get('/items', function(request, response){
-  
+  console.log('table items');
   data.Item.findAll()
     .then(function(_items){
 

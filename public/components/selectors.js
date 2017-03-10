@@ -1,6 +1,18 @@
-var Selector = (function(){
-    
+define(['jquery', 'semantic'], function(){
+
     const api = {
+        view : {
+            items : 'table items'
+        },
+        resources : {
+            item : 'item',
+            items : 'items',
+            item_pay : 'item pay',
+            saldo : 'saldo'
+        }
+    };
+    
+    const urls = {
         view : {
             items : '/view/items/'
         },
@@ -10,10 +22,10 @@ var Selector = (function(){
             item_pay : '/api/items/{id}/pay',
             saldo : '/api/items/saldo'
         }
-    }
+    };
     
     const item_table = { 
-        id: '#item-table',
+        id: '#items-table',
         row : { name : '.item.name', category : '.item.category', value : '.item.value', date: '.item.date'},
         actions: { edit:'.actions .edit', delete:'.actions .delete', pay:'.actions .pay'}
     };
@@ -28,23 +40,27 @@ var Selector = (function(){
         }
     }
 
-    const form = {
+    const item_form = {
         id: '.form.item',
-        checkbox : id + ' .checkbox',
-        value : id + ' #value',
-        dropdown : id + ' .categories'
+        checkbox : this.id + ' .checkbox',
+        value : this.id + ' #value',
+        dropdown : this.id + ' .categories'
     };
 
-    var _load = function(){
-        $.fn.api.settings.api = {
-            'table items' : api.view.items,
-            'item' : api.resources.item,
-            'items' : api.resources.items,
-            'item pay' : api.resources.item_pay,
-            'saldo' : api.resources.saldo
-        };
+    $.fn.api.settings.api = {
+        'table items' : urls.view.items,
+        'item' : urls.resources.item,
+        'items' : urls.resources.items,
+        'item pay' : urls.resources.item_pay,
+        'saldo' : urls.resources.saldo
     };
 
-    return { load : _load };
-})();
+    return { 
+        api : api,
+        item_table : item_table,
+        menu : menu,
+        item_form : item_form
+     };
+
+});
 

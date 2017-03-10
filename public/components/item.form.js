@@ -1,5 +1,6 @@
-var ItemsForm = (function () {
-    var selector = {};
+define(['selectors', 'jquery', 'semantic'], 
+    function(selectors){
+    
     var onUpdate = undefined;
     /* Form Validation Rules */
     var rules = {
@@ -15,7 +16,7 @@ var ItemsForm = (function () {
 
     /* API Objects */
     var update = {
-        action: selector.api.resources.item,
+        action: selectors.api.resources.item,
         method: 'PUT',
         beforeSend: function (settings) {
             settings.urlData = {
@@ -23,57 +24,57 @@ var ItemsForm = (function () {
             };
             return settings;
         },
-        serializeForm: true,
+        serializeitem_form: true,
         onSuccess: updateSuccess
     };
 
-    var formPost = {
-        action: selector.api.resources.items,
+    var item_formPost = {
+        action: selectors.api.resources.items,
         method: 'POST',
-        serializeForm: true,
+        serializeitem_form: true,
         onSuccess: clear
     };
 
     /* Common Functions */
     var clear = function () {
-        $(selector.form.id).form('clear');
+        $(selectors.item_form.id).form('clear');
     };
 
-    var createForm = function () {
-        $(selector.form.value).maskMoney();
-        $(selector.form.checkbox).checkbox();
-        $().dropdown(selector.form.dropdown);
+    var createitem_form = function () {
+        $(selectors.item_form.value).maskMoney();
+        $(selectors.item_form.checkbox).checkbox();
+        $().dropdown(selectors.item_form.dropdown);
         validations();
     };
 
     var _setValues = function(values){
-        $(selector.form.id).form('set values', values);
+        $(selectors.item_form.id).form('set values', values);
     }
 
     /* API Functions */
     var updateSuccess = function (response) {
+        console.log('update Sucess!');
+        clear();
         if (onUpdate)
             onUpdate(response.data);
     };
 
     /* API Changing Functions */
-    var formUpdate = function () {
-        $(selector.form.id).api(update);
-    };
-
-    var formNew = function(){
-        $(selector.form.id).api(formPost);
-    }
-
     var newItem = function () {
         clear();
-        $(selector.form.id).api(formPost);
+        $(selectors.item_form.id).api(item_formPost);
     };
+
+    var editItem = function(item){
+        clear();
+        $(selectors.item_form.id).api(update);
+        _setValues(item);
+    }
 
     var validations = function () {
 
-        $(selector.form.id)
-            .form({
+        $(selectors.item_form.id)
+            .item_form({
                 inline: true,
                 fields: rules
             });
@@ -81,15 +82,17 @@ var ItemsForm = (function () {
     };
 
     var _load = function(args){
-        selector = args.selector;
-        onUpdate = args.onUpdate;
+        try {
+            onUpdate = args.onUpdate;
+        } catch(e){
+            console.log(e);
+        }        
     };
 
     return { 
         load : _load,
-        setValues : _setValues,
-        toUpdate : formUpdate,
-        toNew : formNew
+        editItem : editItem,
+        newItem : newItem
     };
 
-})();
+});
