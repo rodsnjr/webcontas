@@ -1,4 +1,4 @@
-define(['jquery', 'semantic'], function(){
+define(function(require){
 
     const api = {
         view : {
@@ -50,16 +50,23 @@ define(['jquery', 'semantic'], function(){
         dropdown : '.form.item .categories'
     };
     
-    $.fn.api.settings.api = {
-        'table items' : urls.view.items,
-        'item' : urls.resources.item,
-        'items' : urls.resources.items,
-        'item pay' : urls.resources.item_pay,
-        'saldo' : urls.resources.saldo,
-        'month' : urls.resources.month
-    };
+    var load = function(){
+        require('jquery');
+        require('semantic');
+
+        $.fn.api.settings.api = {
+            'table items' : '/view/items/',
+            'item' : '/api/items/{id}',
+            'items' : '/api/items',
+            'item pay' : '/api/items/{id}/pay',
+            'saldo' : '/api/items/saldo',
+            'month' : '/api/items/month'
+        };
+
+    }
 
     return { 
+        load : load,
         api : api,
         item_table : item_table,
         menu : menu,

@@ -33,11 +33,9 @@ define(function (require) {
             update = {
                 action: selectors.api.resources.item,
                 method: 'PUT',
-                urlData: { id : -1},
-                beforeSend: function (settings) {
-                    settings.urlData = {
-                        id: settings.data.id
-                    };
+                urlData: { id : -1 },
+                beforeSend : function(settings){
+                    settings.data.id = settings.urlData.id;
                     return settings;
                 },
                 serializeForm: true,
@@ -93,6 +91,7 @@ define(function (require) {
 
         var editItem = function (item) {
             clear();
+            update.urlData.id = item.id;
             $(selectors.item_form.id).api(update);
             _setValues(item);
         }

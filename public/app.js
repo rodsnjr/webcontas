@@ -22,10 +22,11 @@ requirejs.config({
 });
 
 // Start the main app logic.
-requirejs(['jquery', 'events', 'menu', 'itemForm'],
-function   ($, events, menu, itemForm) {
+requirejs(['jquery', 'events', 'menu', 'itemForm', 'selectors'],
+function   ($, events, menu, itemForm, selectors) {
 
     $(document).ready(function(){
+        selectors.load();
         events.load();
         menu.load();
         itemForm.load();

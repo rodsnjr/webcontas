@@ -1,31 +1,11 @@
-define(['selectors', 'jquery', 'semantic'],
-    function (selectors) {
+define(function (require) {
 
     var events = undefined;
+    var selectors = undefined;
 
-    var itemEdit = {
-        action: selectors.api.resources.item,
-        method: 'GET',
-        onSuccess: function (response) {
-            editItem(response.data);
-        }
-    };
-
-    var itemDelete = {
-        action: selectors.api.resources.item,
-        method: 'DELETE',
-        onSuccess: function (response) {
-            removeItem(response.data.id);
-        }
-    };
-
-    var itemPay = {
-        action: selectors.api.resources.item_pay,
-        method: 'PUT',
-        onSuccess: function (response) {
-            refreshItem(response.data);
-        }
-    };
+    var itemEdit = undefined;
+    var itemDelete = undefined;
+    var itemPay = undefined;
 
     var removeItem = function (id) {
         $("#" + id).html("");
@@ -54,8 +34,39 @@ define(['selectors', 'jquery', 'semantic'],
         events.onEditItem(data);
     };
 
-    var _load = function (_events) {
-        events=_events;
+    function apiObjects(){
+        itemEdit = {
+            action: selectors.api.resources.item,
+            method: 'GET',
+            onSuccess: function (response) {
+                editItem(response.data);
+            }
+        };
+        
+        itemDelete = {
+            action: selectors.api.resources.item,
+            method: 'DELETE',
+            onSuccess: function (response) {
+                removeItem(response.data.id);
+            }
+        };
+        
+        itemPay = {
+            action: selectors.api.resources.item_pay,
+            method: 'PUT',
+            onSuccess: function (response) {
+                refreshItem(response.data);
+            }
+        };
+
+    }
+
+    var _load = function () {
+        require('jquery');
+        require('semantic');
+        selectors = require('selectors');
+        events = require('events');
+        apiObjects();
         tableActions();
     };
 

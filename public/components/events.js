@@ -7,14 +7,16 @@ define(function(require){
     var chart = undefined;
     var selectors = require('selectors');
 
-    $(selectors.menu.saldo).api({
-        action : selectors.api.resources.saldo,
-        onSuccess : function(response){
-            templates.saldo(response.data);      
-        }
-    });
-
     var load = function (){
+
+        $(selectors.menu.saldo).api({
+            action : selectors.api.resources.saldo,
+            onSuccess : function(response){
+                templates.saldo(response.data);      
+            }
+        });
+
+
         menu = require('menu');
         itemForm = require('itemForm');
         templates = require('templates');
@@ -33,6 +35,7 @@ define(function(require){
     var updateItem = function(item){
         if (itemTable)
             itemTable.refresh();
+        menu.changeTab(menu.tabs.items);
     };
 
     var newItem = function(){
@@ -41,7 +44,7 @@ define(function(require){
 
     var tableLoad = function(){
         itemTable = require('itemTable');
-        itemTable.load(this);
+        itemTable.load();
     };
 
     var loadChart = function(data){
