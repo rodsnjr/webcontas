@@ -4,6 +4,7 @@ define(function(require){
     var itemForm = undefined;
     var itemTable = undefined;
     var templates = undefined;
+    var chart = undefined;
     var selectors = require('selectors');
 
     $(selectors.menu.saldo).api({
@@ -43,13 +44,20 @@ define(function(require){
         itemTable.load(this);
     };
 
+    var loadChart = function(data){
+        chart = require('charts');
+        chart.load();
+        chart.build(data);
+    }
+
     return {
         load : load,
         onTableLoad : tableLoad,
         onEditItem : editItem,
         onUpdateItem : updateItem,
         onNewItem : newItem,
-        onUpdateSaldo : saldoUpdate
+        onUpdateSaldo : saldoUpdate,
+        onLoadChart : loadChart
     };
 
 });

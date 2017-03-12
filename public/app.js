@@ -8,13 +8,16 @@ requirejs.config({
         jquery_maskMoney:'jquery/jquery.maskMoney.min',
         // Semantic-UI Base
         semantic:'semantic/semantic.min',
+        //ChartsJS
+        chartsJS:'other/Chart.bundle.min',
         // Componentes
         selectors:'components/selectors',
         menu:'components/menu',
         itemForm:'components/item.form',
         itemTable:'components/item.table',
         templates:'components/templates',
-        events : 'components/events'
+        events : 'components/events',
+        charts:'components/charts'
     }
 });
 
