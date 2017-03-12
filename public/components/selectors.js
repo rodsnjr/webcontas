@@ -8,7 +8,8 @@ define(['jquery', 'semantic'], function(){
             item : 'item',
             items : 'items',
             item_pay : 'item pay',
-            saldo : 'saldo'
+            saldo : 'saldo',
+            month : 'month'
         }
     };
     
@@ -20,7 +21,8 @@ define(['jquery', 'semantic'], function(){
             item : '/api/items/{id}',
             items : '/api/items',
             item_pay : '/api/items/{id}/pay',
-            saldo : '/api/items/saldo'
+            saldo : '/api/items/saldo',
+            month : '/api/items/month'
         }
     };
     
@@ -53,7 +55,8 @@ define(['jquery', 'semantic'], function(){
         'item' : urls.resources.item,
         'items' : urls.resources.items,
         'item pay' : urls.resources.item_pay,
-        'saldo' : urls.resources.saldo
+        'saldo' : urls.resources.saldo,
+        'month' : urls.resources.month
     };
 
     return { 

@@ -8,6 +8,7 @@ define(function (require) {
         var selectors=undefined;
         var tableTab = undefined;
         var events = undefined;
+        var chartData=undefined;
 
         function _import(){
             require('jquery');
@@ -26,13 +27,31 @@ define(function (require) {
                 onComplete: loadTableTab
             };
 
+            chartData = {
+                action: selectors.api.resources.month,
+                method: 'GET',
+                cache: false,
+                onComplete: loadChart
+            };
+
             $(selectors.menu.tabs.items).api(tableTab);
+            $(selectors.menu.tabs.geral).api(chartData);
             $(selectors.menu.buttons).tab();
+
+            $(selectors.menu.tabs.item).click(function(){
+                events.onNewItem();
+            });
+
+            $(selectors.menu.tabs.geral).api('query');
         }
 
         var loadTableTab = function (response) {
             tabDraw(tabs.items, response);
             events.onTableLoad();
+        }
+
+        var loadChart = function(response){
+            events.onLoadChart(response.data);
         }
 
         var tabDraw = function (tab, html) {
