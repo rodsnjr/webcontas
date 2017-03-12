@@ -1,20 +1,35 @@
-$(document).ready(function(){
-    
-    $('.menu #items').api(ItemsTable.prototype.findAll);
+requirejs.config({
+    //By default load any module IDs from js/lib
+    baseUrl: '/',
+    paths: {
+        // JQuery Base
+        jquery: 'jquery/jquery.min',
+        jquery_serialize:'jquery/jquery.serialize-object.min',
+        jquery_maskMoney:'jquery/jquery.maskMoney.min',
+        // Semantic-UI Base
+        semantic:'semantic/semantic.min',
+        //ChartsJS
+        chartsJS:'other/Chart.bundle.min',
+        // Componentes
+        selectors:'components/selectors',
+        menu:'components/menu',
+        itemForm:'components/item.form',
+        itemTable:'components/item.table',
+        templates:'components/templates',
+        events : 'components/events',
+        charts:'components/charts'
+    }
+});
 
-    $('#saldo').api({
-        action : 'saldo',
-        on : 'now',
-        onSuccess : function(response){
-            $('#saldo').html(new SaldoTemplate(response.data).render());
-        }
+// Start the main app logic.
+requirejs(['jquery', 'events', 'menu', 'itemForm', 'selectors'],
+function   ($, events, menu, itemForm, selectors) {
+
+    $(document).ready(function(){
+        selectors.load();
+        events.load();
+        menu.load();
+        itemForm.load();
     });
 
-    $('.menu .item').tab();
-
-    $('#item').click(function(){
-        ItemsForm.prototype.newItem();
-    });
-
-    ItemsForm.prototype.createForm();
 });

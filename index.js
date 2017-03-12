@@ -37,7 +37,7 @@ app.set('port', (process.env.PORT || 5000));
 app.use(express.static(__dirname + '/public'));
 
 app.use('/view', loggedIn(), views);
-app.use('/api', loggedIn(), api);
+app.use('/api', api);
 
 app.get('/', loggedIn(), function(request, response) {
     data.Category.findAll().then(function(all){

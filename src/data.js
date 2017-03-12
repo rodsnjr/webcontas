@@ -1,6 +1,6 @@
 var Sequelize = require('sequelize');
 var md5 = require('md5');
-/* Produção */
+/* Produção
 var sequelize = new Sequelize(
     'd34j8iut6s3rm9', 
     'vaxlypenzpwnst', 
@@ -10,14 +10,14 @@ var sequelize = new Sequelize(
     port: 5432,
     dialect: 'postgres'
 });
-
-/* Develop 
+*/
+/* Develop */ 
 var sequelize = new Sequelize('dbname', 'contasapp', '', {
     host: "localhost",
     port: 5432,
     dialect: 'postgres'
 });
-*/
+
 
 var User = sequelize.define('user', {
   username: {

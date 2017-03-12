@@ -1,15 +1,17 @@
 <html>
     <head>
-        <script src="/jquery.min.js"></script>
-        <script src="/jquery.serialize-object.min.js"></script>
-        <script src="/semantic.min.js"></script>
-        <link rel="stylesheet" type="" href="/semantic.min.css">
+        <link rel="stylesheet" type="" href="/semantic/semantic.min.css">
         <meta charset="UTF8">
     </head>
+    <style>
+        .main {
+            margin-top: 1%;
+        }
+    </style>
     <body>
-        <div class="ui container">
+        <div class="ui main container">
             {% block content %}
-            {% endblock %}
+            {% endblock %}            
         </div>
     </body>
 </html>
