@@ -2,7 +2,7 @@ var TemplateUtils = require('../utils/TemplateUtils');
 var QueryService = require('../services/QueryService');
 var Item = require('../models/Item');
 
-function TabController(app) {
+function TemplateController(app) {
   var itemQuery = QueryService(Item);
   app.get('/items', function (request, response) {
     itemQuery.all()
@@ -27,4 +27,4 @@ function TabController(app) {
 
 }
 
-module.exports = TabController;
+module.exports = TemplateController;

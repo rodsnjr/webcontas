@@ -41,6 +41,8 @@ function RestfulController(router) {
                 return next(response, data);
             });
         });
+
+        return router;
     }
 
     var query = function (model) {
@@ -59,7 +61,7 @@ function RestfulController(router) {
         if (!responseItem) {
             console.log('Response item undefined, using default');
         }
-        buildRoutes();
+        return buildRoutes();
     };
 
 };

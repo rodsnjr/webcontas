@@ -1,12 +1,8 @@
-//Routers
 var express = require('express');
 var bodyParser = require('body-parser');
-//Views
 var nunjucks = require('nunjucks');
-var views = require('./src/views');
-//Database
-var data = require('./src/data');
-var api = require('./src/api');
+var passport = require('passport');
+var appConfig = require('./src/config/App');
 var app = express();
 
 // Templating
@@ -25,25 +21,15 @@ app.use(require('cookie-parser')());
 app.use(require('express-session')
     ({ secret: 'nogueiraRodney', resave: false, saveUninitialized: false }));
 
-
-// Auth
-var auth = require('./src/auth');
-var loggedIn = require('connect-ensure-login').ensureLoggedIn;
-app.use(auth.passport.initialize());
-app.use(auth.passport.session());
-app.use(auth.app);
+app.use(passport.initialize());
+app.use(passport.session());
 
 app.set('port', (process.env.PORT || 5000));
+app.set('dbconfig', 'dev');
+app.set('passport', passport);
 app.use(express.static(__dirname + '/public'));
 
-app.use('/view', loggedIn(), views);
-app.use('/api', api);
-
-app.get('/', loggedIn(), function(request, response) {
-    data.Category.findAll().then(function(all){
-        response.render('index.njk', { categories : all });
-    });
-});
+app.use(appConfig(app));
 
 app.listen(app.get('port'), function() {
    console.log('Application Runing on Port ', app.get('port'));
