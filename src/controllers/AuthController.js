@@ -1,47 +1,53 @@
-var app = require('express').Router();
-var User = require('./data').User;
-var passport = require('passport');
+var User = require('../models/User');
 var LocalStrategy = require('passport-local').Strategy
 var md5 = require('md5');
 
-passport.use(new LocalStrategy(
-  function(username, password, done) {
-    User.findById(username)
-    .then(function(user){
-      if (!user){
-        return done(null, false, {message:"No User with this name" + username});
-      }
-      if (user.password==md5(password)){
-        return done(null, user);
-      }
-      return done(null, false);
-    }).catch(function(error){
-      return done(error);
-    });
+function AuthController(app, passport) {
+  if (!app && !passport) {
+    throw new Error('Express App Router and Passport Required');
   }
-));
 
-passport.serializeUser(function(user, done) {
-  done(null, user.username);
-});
+  passport.use(new LocalStrategy(
+    function (username, password, done) {
+      User.findById(username)
+        .then(function (user) {
+          if (!user) {
+            return done(null, false, { message: "No User with this name" + username });
+          }
+          if (user.password == md5(password)) {
+            return done(null, user);
+          }
+          return done(null, false);
+        }).catch(function (error) {
+          return done(error);
+        });
+    }
+  ));
 
-passport.deserializeUser(function(username, done) {
-  User.findById(username)
-    .then(function(user){
-      done(null, user);
-    }).catch(function(error){
-      done(error);
-    });
-});
+  passport.serializeUser(function (user, done) {
+    done(null, user.username);
+  });
 
-app.post('/login', passport.authenticate('local', { 
-        successRedirect: '/', 
-        failureRedirect: '/view/login/error'
-    })
-);
+  passport.deserializeUser(function (username, done) {
+    User.findById(username)
+      .then(function (user) {
+        done(null, user);
+      }).catch(function (error) {
+        done(error);
+      });
+  });
 
-app.get('/login', function(request, response){
-  response.render('login.njk');
-});
+  app.post('/login', passport.authenticate('local', {
+    successRedirect: '/',
+    failureRedirect: '/view/login/error'
+  })
+  );
 
-module.exports = { app: app, passport : passport };
+  app.get('/login', function (request, response) {
+    response.render('login.njk');
+  });
+
+};
+
+
+module.exports = AuthController;
