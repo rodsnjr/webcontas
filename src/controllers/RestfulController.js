@@ -57,4 +57,6 @@ var restfulRoutes = function(model, router){
     });
 };
 
-module.exports = restfulRoutes;
+module.exports = {
+    create : restfulRoutes 
+};
