@@ -14,7 +14,10 @@ function ItemController(app){
         });
     }
 
-    RestfulController.create(Item, app);
+    RestfulController(app)
+        .model(Item)
+        .response(SemanticResponse)
+        .create();
 
     app.get('/balance', function(request, response){
         ItemService.balance(function(balance){

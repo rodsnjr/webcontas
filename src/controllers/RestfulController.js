@@ -1,62 +1,67 @@
-function Query(model){
-    this.model = model;
+var QueryService = require('../services/QueryService');
 
-    this.all = function(){
-        return this.model.findAll();
+function RestfulController(router) {
+
+    if (!router) {
+        throw new Error('Express Router is Required');
+    }
+
+    var queryService = undefined;
+    var responseItem = function (response, data) {
+        return response.send(data);
     };
 
-    this.one = function(id){
-        return this.model.findById(id);
-    };
-
-    this.save = function(value){
-        return this.model.build(value).save();
-    };
-
-    this.update = function(value){
-        this.one(value.id)
-            .then(function(data){
-                return data.update(value);
+    var buildRoutes = function(){
+        router.get('/', function (request, response) {
+            queryService.all().then(function (data) {
+                return next(response, data);
+            });
         });
+
+        router.post('/', function (request, response) {
+            queryService.save(request.body).then(function (data) {
+                return next(response, data);
+            });
+        });
+
+        router.get('/:id', function (request, response) {
+            queryService.one(request.params.id).then(function (data) {
+                return next(response, data);
+            });
+        });
+
+        router.put('/:id', function (request, response) {
+            queryService.update(request.body).then(function (data) {
+                return next(response, data);
+            });
+        });
+
+        router.delete('/:id', function (request, response) {
+            queryService.delete(request.params.id).then(function (data) {
+                return next(response, data);
+            });
+        });
+    }
+
+    var query = function (model) {
+        queryService = QueryService(model);
     };
 
-    this.delete = function(value){
-        this.one.then(function(data){
-            return data.destroy();
-        });
+    var response = function (responseItem) {
+        // Verificar se é uma função de dois argumentos, senão throw new Error ...
+        responseItem = responseItem;
     };
+
+    var create = function () {
+        if (!queryService) {
+            throw new Error('A query Service must be defined');
+        }
+        if (!responseItem) {
+            console.log('Response item undefined, using default');
+        }
+        buildRoutes();
+    };
+
 };
 
-var restfulRoutes = function(model, router){
-    var query = new Query(model);
-    
-    router.get('/', function(request, response){
-        query.all().then(function(data){
-            return response.send({success:true, data:data});
-        });
-    });
-    router.post('/', function(request, response){
-        query.save(request.body).then(function(data){
-            return response.send({success:true, data:data});
-        });
-    });
-    router.get('/:id', function(request, response){
-        query.one(request.params.id).then(function(data){
-            return response.send({success:true, data:data});
-        });
-    });
-    router.put('/:id', function(request, response){
-        query.update(request.body).then(function(data){
-            return response.send({success:true, data:data});
-        });
-    });
-    router.delete('/:id', function(request, response){
-        query.delete(request.params.id).then(function(data){
-            return response.send({success:true, data:data});
-        });
-    });
-};
-
-module.exports = {
-    create : restfulRoutes 
-};
+module.exports = RestfulController;
