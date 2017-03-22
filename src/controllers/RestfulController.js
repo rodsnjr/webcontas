@@ -14,31 +14,38 @@ function RestfulController(router) {
     var buildRoutes = function(){
         router.get('/', function (request, response) {
             queryService.all().then(function (data) {
-                return next(response, data);
+                return responseItem(response, data);
+            });
+        });
+
+        router.get('/page/:page', function(request, response){
+            var limit = request.params.limit || 10;
+            queryService.page(request.params.page).then(function(data){
+                return responseItem(response, data);
             });
         });
 
         router.post('/', function (request, response) {
             queryService.save(request.body).then(function (data) {
-                return next(response, data);
+                return responseItem(response, data);
             });
         });
 
         router.get('/:id', function (request, response) {
             queryService.one(request.params.id).then(function (data) {
-                return next(response, data);
+                return responseItem(response, data);
             });
         });
 
         router.put('/:id', function (request, response) {
             queryService.update(request.body).then(function (data) {
-                return next(response, data);
+                return responseItem(response, data);
             });
         });
 
         router.delete('/:id', function (request, response) {
             queryService.delete(request.params.id).then(function (data) {
-                return next(response, data);
+                return responseItem(response, data);
             });
         });
 

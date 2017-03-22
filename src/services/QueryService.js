@@ -8,6 +8,11 @@ function QueryService(model) {
             return model.findAll();
         },
 
+        page : function(page, limit){
+            offset = page*limit;
+            return model.findAll({offset:offset, limit:limit});
+        },
+
         one : function (id) {
             return model.findById(id);
         },
