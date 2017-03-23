@@ -11,4 +11,4 @@ function MainController(){
     return app;
 }
 
-module.exports = MainController;
+module.exports = MainController();

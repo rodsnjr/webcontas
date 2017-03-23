@@ -12,7 +12,7 @@ function TemplateController() {
 
         response.render('items/table.njk', {
           typeValue: TemplateUtils.typeValue,
-          paid: TemplateStringsArray.paid,
+          paid: TemplateUtils.paid,
           date: TemplateUtils.date,
           items: _items
         });
@@ -30,4 +30,4 @@ function TemplateController() {
   return app;
 }
 
-module.exports = TemplateController;
+module.exports = TemplateController();

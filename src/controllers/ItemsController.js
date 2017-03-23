@@ -33,4 +33,4 @@ function ItemController(){
     return app;
 };
 
-module.exports = ItemController;
+module.exports = ItemController();

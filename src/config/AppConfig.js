@@ -1,7 +1,7 @@
 function AppConfig(app){
     const Data = require('./DatabaseConfig');
     
-    Data.config.sync().then(function(){
+    Data.config.sync({force:true}).then(function(){
         var Migrations = require('./Migrations');
         return Migrations();
     });

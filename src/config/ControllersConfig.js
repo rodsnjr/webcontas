@@ -1,10 +1,10 @@
 function Controllers(passport){
     var app = require('express').Router();
     
-    const main = require('../controllers/MainController')();
+    const main = require('../controllers/MainController');
     const auth = require('../controllers/AuthController')(passport);
-    const items = require('../controllers/ItemsController')();
-    const template = require('../controllers/TemplateController')();
+    const items = require('../controllers/ItemsController');
+    const template = require('../controllers/TemplateController');
     
     var AuthMiddleware = require('../middleware/AuthMiddleware');
     app.use(auth);
