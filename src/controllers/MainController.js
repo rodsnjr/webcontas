@@ -1,6 +1,9 @@
-function MainController(app){
+var Category = require('../models/Category');
+function MainController(){
+    var app = require('express').Router();
+    
     app.get('/', function(request, response) {
-    data.Category.findAll().then(function(all){
+    Category.findAll().then(function(all){
             response.render('index.njk', { categories : all });
         });
     });

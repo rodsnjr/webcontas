@@ -1,11 +1,14 @@
-var User = require('../models/User');
-var LocalStrategy = require('passport-local').Strategy
-var md5 = require('md5');
-
-function AuthController(app, passport) {
-  if (!app && !passport) {
-    throw new Error('Express App Router and Passport Required');
+function AuthController(passport) {
+  
+  if (!passport) {
+    throw new Error('Passport Required');
   }
+
+  var User = require('../models/User');
+  var LocalStrategy = require('passport-local').Strategy
+  var md5 = require('md5');
+  
+  var app = require('express').Router();
 
   passport.use(new LocalStrategy(
     function (username, password, done) {
@@ -40,12 +43,13 @@ function AuthController(app, passport) {
   app.post('/login', passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/view/login/error'
-  })
-  );
+  }));
 
   app.get('/login', function (request, response) {
     response.render('login.njk');
   });
+
+  return app;
 
 };
 

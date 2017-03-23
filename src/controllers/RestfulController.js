@@ -54,11 +54,13 @@ function RestfulController(router) {
 
     var query = function (model) {
         queryService = QueryService(model);
+        return self;
     };
 
     var response = function (responseItem) {
         // Verificar se é uma função de dois argumentos, senão throw new Error ...
         responseItem = responseItem;
+        return self;
     };
 
     var create = function () {
@@ -71,6 +73,13 @@ function RestfulController(router) {
         return buildRoutes();
     };
 
+    var self =  {
+            model : query,
+            response : response,
+            create : create
+        };
+
+    return self;
 };
 
 module.exports = RestfulController;

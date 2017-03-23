@@ -1,11 +1,10 @@
-var Item = require('../models/Item');
-var RestfulController = require('./RestfulController');
-var ItemService = require('../services/ItemService');
+function ItemController(){
 
-function ItemController(app){
-	if(!app){
-		throw new Error('Express App Router Required');
-	};
+    var Item = require('../models/Item');
+    var RestfulController = require('./RestfulController');
+    var ItemService = require('../services/ItemService');
+
+    var app = require('express').Router();
 
     var SemanticResponse = function(response, data){
         return response.send({
@@ -30,4 +29,8 @@ function ItemController(app){
             return SemanticResponse(response, value);
         });
     });
+    
+    return app;
 };
+
+module.exports = ItemController;

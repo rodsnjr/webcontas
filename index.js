@@ -2,7 +2,7 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var nunjucks = require('nunjucks');
 var passport = require('passport');
-var appConfig = require('./src/config/App');
+var appConfig = require('./src/config/AppConfig');
 var app = express();
 
 // Templating

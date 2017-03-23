@@ -1,8 +1,10 @@
-var TemplateUtils = require('../utils/TemplateUtils');
-var QueryService = require('../services/QueryService');
-var Item = require('../models/Item');
+function TemplateController() {
+  var TemplateUtils = require('../utils/TemplateUtils');
+  var QueryService = require('../services/QueryService');
+  var Item = require('../models/Item');
 
-function TemplateController(app) {
+  var app = require('express').Router();
+
   var itemQuery = QueryService(Item);
   app.get('/items', function (request, response) {
     itemQuery.all()
@@ -25,6 +27,7 @@ function TemplateController(app) {
 
   });
 
+  return app;
 }
 
 module.exports = TemplateController;
